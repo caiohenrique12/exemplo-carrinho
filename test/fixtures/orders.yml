@@ -1,0 +1,7 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  data_compra: 2016-01-20
+
+two:
+  data_compra: 2016-01-20

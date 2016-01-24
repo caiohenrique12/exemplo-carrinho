@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+<% if session[:carrinho] %>
+  voce tem <%= session[:carrinho].size %> itens
+<% end %>
+<h1>Bem vindo a Loja</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Qtd</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.price %></td>
+        <td><%= product.qtd %></td>
+        <td><%= link_to 'Show', product %></td>
+        <td><%= link_to 'Edit', edit_product_path(product) %></td>
+        <td><%= link_to 'Add ao Carrinho', loja_index_path(product_id: product.id), method: :post %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Confirmar Pedido', new_loja_path %>

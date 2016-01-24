@@ -1,0 +1,2437 @@
+  [1m[36m (164.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.2ms)[0m  select sqlite_version(*)
+  [1m[36m (132.3ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateProducts (20160121002612)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.7ms)[0m  CREATE TABLE "products" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "price" decimal, "qtd" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160121002612"]]
+  [1m[35m (135.0ms)[0m  commit transaction
+Migrating to CreateOrders (20160121002717)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  CREATE TABLE "orders" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "data_compra" date, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160121002717"]]
+  [1m[35m (126.9ms)[0m  commit transaction
+Migrating to CreateOrderItems (20160121002827)
+  [1m[36m (0.3ms)[0m  [1mbegin transaction[0m
+  [1m[35m (1.0ms)[0m  CREATE TABLE "order_items" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "product_id" integer, "qtd" integer, "order_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.5ms)[0m  [1mCREATE  INDEX "index_order_items_on_product_id" ON "order_items" ("product_id")[0m
+  [1m[35m (0.3ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_order_items_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_order_items_on_product_id' AND type='index'
+
+  [1m[36m (0.4ms)[0m  [1mCREATE  INDEX "index_order_items_on_order_id" ON "order_items" ("order_id")[0m
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20160121002827"]]
+  [1m[36m (141.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.3ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_order_items_on_order_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_order_items_on_order_id' AND type='index'
+[0m
+  [1m[35m (1.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_order_items_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_order_items_on_product_id' AND type='index'
+
+
+
+Started GET "/" for 127.0.0.1 at 2016-01-20 21:29:15 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/railties-4.2.5/lib/rails/templates/rails/welcome/index.html.erb (4.3ms)
+Completed 200 OK in 36ms (Views: 19.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/products/new" for 127.0.0.1 at 2016-01-20 21:29:26 -0300
+Processing by ProductsController#new as HTML
+  Rendered products/_form.html.erb (46.0ms)
+  Rendered products/new.html.erb within layouts/application (54.6ms)
+Completed 200 OK in 1806ms (Views: 1791.6ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:29:28 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 21:29:28 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 21:29:28 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 21:29:28 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:29:28 -0300
+
+
+Started POST "/products" for 127.0.0.1 at 2016-01-20 21:29:41 -0300
+Processing by ProductsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Wu2p2HdomqkUw1zhHnRpjpKR6rAm4h7oOnk8scc0hp8JpNDPLeZ4HGcAYoKFSMywpSgPWo5kqsrTbPkKEydXXQ==", "product"=>{"name"=>"Hiphone", "price"=>"300", "qtd"=>"10"}, "commit"=>"Create Product"}
+  [1m[35m (0.4ms)[0m  begin transaction
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "products" ("name", "price", "qtd", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Hiphone"], ["price", 300.0], ["qtd", 10], ["created_at", "2016-01-21 00:29:41.421331"], ["updated_at", "2016-01-21 00:29:41.421331"]]
+  [1m[35m (139.8ms)[0m  commit transaction
+Redirected to http://localhost:3000/products/1
+Completed 302 Found in 166ms (ActiveRecord: 141.3ms)
+
+
+Started GET "/products/1" for 127.0.0.1 at 2016-01-20 21:29:41 -0300
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProduct Load (0.4ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered products/show.html.erb within layouts/application (1.9ms)
+Completed 200 OK in 45ms (Views: 30.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/products" for 127.0.0.1 at 2016-01-20 21:29:48 -0300
+Processing by ProductsController#index as HTML
+  [1m[35mProduct Load (0.6ms)[0m  SELECT "products".* FROM "products"
+  Rendered products/index.html.erb within layouts/application (8.7ms)
+Completed 200 OK in 76ms (Views: 73.3ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/products/new" for 127.0.0.1 at 2016-01-20 21:29:49 -0300
+Processing by ProductsController#new as HTML
+  Rendered products/_form.html.erb (12.3ms)
+  Rendered products/new.html.erb within layouts/application (17.0ms)
+Completed 200 OK in 96ms (Views: 93.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/products" for 127.0.0.1 at 2016-01-20 21:30:04 -0300
+Processing by ProductsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"l/oK7i5Wn6incbmFnce/qR/vUM8AQ+yS50n9Vu9Gr/vEs3P5dNh9HdSyh+YG+xqXKFa1JajFWLAOXDjtO1V+OQ==", "product"=>{"name"=>"Tv Samsung 32 pl", "price"=>"2000", "qtd"=>"5"}, "commit"=>"Create Product"}
+  [1m[36m (0.9ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "products" ("name", "price", "qtd", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "Tv Samsung 32 pl"], ["price", 2000.0], ["qtd", 5], ["created_at", "2016-01-21 00:30:04.630544"], ["updated_at", "2016-01-21 00:30:04.630544"]]
+  [1m[36m (204.9ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/products/2
+Completed 302 Found in 221ms (ActiveRecord: 206.4ms)
+
+
+Started GET "/products/2" for 127.0.0.1 at 2016-01-20 21:30:04 -0300
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mProduct Load (0.6ms)[0m  SELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1  [["id", 2]]
+  Rendered products/show.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 90ms (Views: 86.0ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/products" for 127.0.0.1 at 2016-01-20 21:30:07 -0300
+Processing by ProductsController#index as HTML
+  [1m[36mProduct Load (0.3ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered products/index.html.erb within layouts/application (3.5ms)
+Completed 200 OK in 41ms (Views: 39.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:32:23 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.8ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (20.2ms)
+Completed 200 OK in 317ms (Views: 311.0ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:32:23 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:32:23 -0300
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:32:40 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (0.6ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (18.2ms)
+Completed 200 OK in 107ms (Views: 103.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:32:41 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:32:41 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:32:41 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 21:32:41 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 21:32:41 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 21:32:41 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 21:32:41 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:32:41 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 21:32:41 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:32:41 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:32:41 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 21:32:41 -0300
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:33:21 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.4ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (6.3ms)
+Completed 200 OK in 53ms (Views: 50.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:33:22 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:33:22 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:33:22 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 21:33:22 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 21:33:22 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 21:33:22 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 21:33:22 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 21:33:22 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:33:22 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:33:22 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:33:22 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 21:33:22 -0300
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:41:36 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (0.8ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (20.3ms)
+Completed 500 Internal Server Error in 29ms (ActiveRecord: 1.8ms)
+
+ActionView::Template::Error (No route matches {:action=>"show", :controller=>"loja", :product_id=>1} missing required keys: [:id]):
+    20:         <td><%= product.qtd %></td>
+    21:         <td><%= link_to 'Show', product %></td>
+    22:         <td><%= link_to 'Edit', edit_product_path(product) %></td>
+    23:         <td><%= link_to 'Add ao Carrinho', loja_path(product_id: product.id), method: :post %></td>
+    24:       </tr>
+    25:     <% end %>
+    26:   </tbody>
+  app/views/loja/index.html.erb:23:in `block in _app_views_loja_index_html_erb___4605106462080374513_69987432251040'
+  app/views/loja/index.html.erb:16:in `_app_views_loja_index_html_erb___4605106462080374513_69987432251040'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (14.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (8.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (23.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (85.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (34.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (70.7ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:46:59 -0300
+Processing by LojaController#index as HTML
+  Rendered loja/index.html.erb within layouts/application (1.8ms)
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.0ms)
+
+SyntaxError (/home/chenrique/Documentos/Projetos/projeto/app/views/loja/index.html.erb:23: syntax error, unexpected tSTRING_BEG, expecting keyword_do or '{' or '('
+...o 'Add ao Carrinho', loja_path"?product_id=#{product.id}", m...
+...                               ^
+/home/chenrique/Documentos/Projetos/projeto/app/views/loja/index.html.erb:23: syntax error, unexpected ',', expecting ')'
+...ath"?product_id=#{product.id}", method: :post );@output_buff...
+...                               ^):
+  app/views/loja/index.html.erb:23: syntax error, unexpected tSTRING_BEG, expecting keyword_do or '{' or '('
+  app/views/loja/index.html.erb:23: syntax error, unexpected ',', expecting ')'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (15.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (6.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (3.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (61.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (32.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (68.6ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:47:12 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.6ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (8.9ms)
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 0.6ms)
+
+ActionView::Template::Error (No route matches {:action=>"show", :controller=>"loja"} missing required keys: [:id]):
+    20:         <td><%= product.qtd %></td>
+    21:         <td><%= link_to 'Show', product %></td>
+    22:         <td><%= link_to 'Edit', edit_product_path(product) %></td>
+    23:         <td><%= link_to 'Add ao Carrinho', loja_path+"?product_id=#{product.id}", method: :post %></td>
+    24:       </tr>
+    25:     <% end %>
+    26:   </tbody>
+  app/views/loja/index.html.erb:23:in `block in _app_views_loja_index_html_erb___4605106462080374513_69987373584120'
+  app/views/loja/index.html.erb:16:in `_app_views_loja_index_html_erb___4605106462080374513_69987373584120'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (20.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (9.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (66.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (1.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (38.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (76.7ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:47:45 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (0.7ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (8.4ms)
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 0.7ms)
+
+ActionView::Template::Error (No route matches {:action=>"show", :controller=>"loja"} missing required keys: [:id]):
+    20:         <td><%= product.qtd %></td>
+    21:         <td><%= link_to 'Show', product %></td>
+    22:         <td><%= link_to 'Edit', edit_product_path(product) %></td>
+    23:         <td><%= link_to 'Add ao Carrinho', loja_path+"?product_id=#{product.id}", method: :post %></td>
+    24:       </tr>
+    25:     <% end %>
+    26:   </tbody>
+  app/views/loja/index.html.erb:23:in `block in _app_views_loja_index_html_erb___4605106462080374513_69987373584120'
+  app/views/loja/index.html.erb:16:in `_app_views_loja_index_html_erb___4605106462080374513_69987373584120'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (16.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (5.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (51.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (1.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (56.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (1.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (96.4ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:49:00 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.3ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (9.4ms)
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 0.3ms)
+
+ActionView::Template::Error (No route matches {:action=>"show", :controller=>"loja"} missing required keys: [:id]):
+    20:         <td><%= product.qtd %></td>
+    21:         <td><%= link_to 'Show', product %></td>
+    22:         <td><%= link_to 'Edit', edit_product_path(product) %></td>
+    23:         <td><%= link_to 'Add ao Carrinho', loja_path+"?product_id=#{ product.id }", method: :post %></td>
+    24:       </tr>
+    25:     <% end %>
+    26:   </tbody>
+  app/views/loja/index.html.erb:23:in `block in _app_views_loja_index_html_erb___4605106462080374513_69987439251360'
+  app/views/loja/index.html.erb:16:in `_app_views_loja_index_html_erb___4605106462080374513_69987439251360'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (20.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (16.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (73.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (2.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (36.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (75.0ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:49:23 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (0.6ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (16.6ms)
+Completed 500 Internal Server Error in 24ms (ActiveRecord: 0.6ms)
+
+ActionView::Template::Error (No route matches {:action=>"show", :controller=>"loja"} missing required keys: [:id]):
+    20:         <td><%= product.qtd %></td>
+    21:         <td><%= link_to 'Show', product %></td>
+    22:         <td><%= link_to 'Edit', edit_product_path(product) %></td>
+    23:         <td><%= link_to 'Add ao Carrinho', loja_path+"?product_id=#{ product.id }", method: :post %></td>
+    24:       </tr>
+    25:     <% end %>
+    26:   </tbody>
+  app/views/loja/index.html.erb:23:in `block in _app_views_loja_index_html_erb___4605106462080374513_69987377049480'
+  app/views/loja/index.html.erb:16:in `_app_views_loja_index_html_erb___4605106462080374513_69987377049480'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (70.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (16.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (6.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (155.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (1.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (2.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (2.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (76.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (1.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (2.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (149.8ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:50:48 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.7ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (227.4ms)
+Completed 500 Internal Server Error in 237ms (ActiveRecord: 0.7ms)
+
+ActionView::Template::Error (undefined local variable or method `loja_path_to_s' for #<#<Class:0x007f4e7014d8c0>:0x007f4e819e97e8>
+Did you mean?  loja_path):
+    20:         <td><%= product.qtd %></td>
+    21:         <td><%= link_to 'Show', product %></td>
+    22:         <td><%= link_to 'Edit', edit_product_path(product) %></td>
+    23:         <td><%= link_to 'Add ao Carrinho', loja_path_to_s+"?product_id=#{ product.id }", method: :post %></td>
+    24:       </tr>
+    25:     <% end %>
+    26:   </tbody>
+  app/views/loja/index.html.erb:23:in `block in _app_views_loja_index_html_erb___4605106462080374513_69987579728940'
+  app/views/loja/index.html.erb:16:in `_app_views_loja_index_html_erb___4605106462080374513_69987579728940'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (31.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (15.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (5.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (109.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (1.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (1.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (63.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (128.7ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:50:56 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (0.5ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (10.1ms)
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 0.5ms)
+
+ActionView::Template::Error (No route matches {:action=>"show", :controller=>"loja"} missing required keys: [:id]):
+    20:         <td><%= product.qtd %></td>
+    21:         <td><%= link_to 'Show', product %></td>
+    22:         <td><%= link_to 'Edit', edit_product_path(product) %></td>
+    23:         <td><%= link_to 'Add ao Carrinho', loja_path.to_s+"?product_id=#{ product.id }", method: :post %></td>
+    24:       </tr>
+    25:     <% end %>
+    26:   </tbody>
+  app/views/loja/index.html.erb:23:in `block in _app_views_loja_index_html_erb___4605106462080374513_69987442745500'
+  app/views/loja/index.html.erb:16:in `_app_views_loja_index_html_erb___4605106462080374513_69987442745500'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (16.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (7.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (54.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (28.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (60.5ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:52:02 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.3ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (3.9ms)
+Completed 200 OK in 47ms (Views: 45.6ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:52:03 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:52:03 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 21:52:03 -0300
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:52:03 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 21:52:03 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 21:52:03 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 21:52:03 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 21:52:03 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:52:03 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:52:03 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:52:03 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 21:52:03 -0300
+
+
+Started POST "/loja?product_id=1" for 127.0.0.1 at 2016-01-20 21:52:12 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"D7fll1SFOOr8z4cV1P2T6pwvRpurSa2dQJs+N/fK/Tdc/pyADgvaX48MuXZPwTbUq5ajcQPPGb+pjvuMI9ks9Q==", "product_id"=>"1"}
+Completed 500 Internal Server Error in 166684ms (ActiveRecord: 0.0ms)
+
+ActionView::MissingTemplate (Missing template loja/create, application/create with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:erb, :builder, :raw, :ruby, :coffee, :jbuilder]}. Searched in:
+  * "/home/chenrique/Documentos/Projetos/projeto/app/views"
+):
+  actionview (4.2.5) lib/action_view/path_set.rb:46:in `find'
+  actionview (4.2.5) lib/action_view/lookup_context.rb:121:in `find'
+  actionview (4.2.5) lib/action_view/renderer/abstract_renderer.rb:18:in `find_template'
+  actionview (4.2.5) lib/action_view/renderer/template_renderer.rb:40:in `determine_template'
+  actionview (4.2.5) lib/action_view/renderer/template_renderer.rb:8:in `render'
+  actionview (4.2.5) lib/action_view/renderer/renderer.rb:42:in `render_template'
+  actionview (4.2.5) lib/action_view/renderer/renderer.rb:23:in `render'
+  actionview (4.2.5) lib/action_view/rendering.rb:100:in `_render_template'
+  actionpack (4.2.5) lib/action_controller/metal/streaming.rb:217:in `_render_template'
+  actionview (4.2.5) lib/action_view/rendering.rb:83:in `render_to_body'
+  actionpack (4.2.5) lib/action_controller/metal/rendering.rb:32:in `render_to_body'
+  actionpack (4.2.5) lib/action_controller/metal/renderers.rb:37:in `render_to_body'
+  actionpack (4.2.5) lib/abstract_controller/rendering.rb:25:in `render'
+  actionpack (4.2.5) lib/action_controller/metal/rendering.rb:16:in `render'
+  actionpack (4.2.5) lib/action_controller/metal/instrumentation.rb:44:in `block (2 levels) in render'
+  activesupport (4.2.5) lib/active_support/core_ext/benchmark.rb:12:in `block in ms'
+  /home/chenrique/.rvm/rubies/ruby-2.3.0/lib/ruby/2.3.0/benchmark.rb:308:in `realtime'
+  activesupport (4.2.5) lib/active_support/core_ext/benchmark.rb:12:in `ms'
+  actionpack (4.2.5) lib/action_controller/metal/instrumentation.rb:44:in `block in render'
+  actionpack (4.2.5) lib/action_controller/metal/instrumentation.rb:87:in `cleanup_view_runtime'
+  activerecord (4.2.5) lib/active_record/railties/controller_runtime.rb:25:in `cleanup_view_runtime'
+  actionpack (4.2.5) lib/action_controller/metal/instrumentation.rb:43:in `render'
+  actionpack (4.2.5) lib/action_controller/metal/implicit_render.rb:10:in `default_render'
+  actionpack (4.2.5) lib/action_controller/metal/implicit_render.rb:5:in `send_action'
+  actionpack (4.2.5) lib/abstract_controller/base.rb:198:in `process_action'
+  actionpack (4.2.5) lib/action_controller/metal/rendering.rb:10:in `process_action'
+  actionpack (4.2.5) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:117:in `call'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:555:in `block (2 levels) in compile'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:505:in `call'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:92:in `__run_callbacks__'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:778:in `_run_process_action_callbacks'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.5) lib/abstract_controller/callbacks.rb:19:in `process_action'
+  actionpack (4.2.5) lib/action_controller/metal/rescue.rb:29:in `process_action'
+  actionpack (4.2.5) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+  activesupport (4.2.5) lib/active_support/notifications.rb:164:in `block in instrument'
+  activesupport (4.2.5) lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+  activesupport (4.2.5) lib/active_support/notifications.rb:164:in `instrument'
+  actionpack (4.2.5) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+  actionpack (4.2.5) lib/action_controller/metal/params_wrapper.rb:250:in `process_action'
+  activerecord (4.2.5) lib/active_record/railties/controller_runtime.rb:18:in `process_action'
+  actionpack (4.2.5) lib/abstract_controller/base.rb:137:in `process'
+  actionview (4.2.5) lib/action_view/rendering.rb:30:in `process'
+  actionpack (4.2.5) lib/action_controller/metal.rb:196:in `dispatch'
+  actionpack (4.2.5) lib/action_controller/metal/rack_delegation.rb:13:in `dispatch'
+  actionpack (4.2.5) lib/action_controller/metal.rb:237:in `block in action'
+  actionpack (4.2.5) lib/action_dispatch/routing/route_set.rb:76:in `dispatch'
+  actionpack (4.2.5) lib/action_dispatch/routing/route_set.rb:45:in `serve'
+  actionpack (4.2.5) lib/action_dispatch/journey/router.rb:43:in `block in serve'
+  actionpack (4.2.5) lib/action_dispatch/journey/router.rb:30:in `each'
+  actionpack (4.2.5) lib/action_dispatch/journey/router.rb:30:in `serve'
+  actionpack (4.2.5) lib/action_dispatch/routing/route_set.rb:817:in `call'
+  rack (1.6.4) lib/rack/etag.rb:24:in `call'
+  rack (1.6.4) lib/rack/conditionalget.rb:38:in `call'
+  rack (1.6.4) lib/rack/head.rb:13:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/params_parser.rb:27:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/flash.rb:260:in `call'
+  rack (1.6.4) lib/rack/session/abstract/id.rb:225:in `context'
+  rack (1.6.4) lib/rack/session/abstract/id.rb:220:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/cookies.rb:560:in `call'
+  activerecord (4.2.5) lib/active_record/query_cache.rb:36:in `call'
+  activerecord (4.2.5) lib/active_record/connection_adapters/abstract/connection_pool.rb:653:in `call'
+  activerecord (4.2.5) lib/active_record/migration.rb:377:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.5) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.5) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  web-console (2.2.1) lib/web_console/middleware.rb:39:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.5) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.5) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.5) lib/rails/engine.rb:518:in `call'
+  railties (4.2.5) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/chenrique/.rvm/rubies/ruby-2.3.0/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+  /home/chenrique/.rvm/rubies/ruby-2.3.0/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+  /home/chenrique/.rvm/rubies/ruby-2.3.0/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (33.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (12.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (5.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/missing_template.html.erb within rescues/layout (112.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (1.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (3.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (81.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (1.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (152.8ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:55:15 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (1.6ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (28.6ms)
+Completed 200 OK in 132ms (Views: 123.3ms | ActiveRecord: 2.8ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:56:30 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.8ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (15.8ms)
+Completed 200 OK in 75ms (Views: 69.3ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:56:31 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:56:31 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 21:56:31 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 21:56:31 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 21:56:31 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:56:31 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 21:56:31 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 21:56:31 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:56:31 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:56:31 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:56:31 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 21:56:31 -0300
+
+
+Started POST "/loja?product_id=1" for 127.0.0.1 at 2016-01-20 21:56:32 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"FOrv9mOBwraraO+NbfjShP7rVp7bdKoItD/Zd8WG9C5Ho5bhOQ8gA9ir0e72xHe6yVKzdHPyHipdKhzMEZUl7A==", "product_id"=>"1"}
+  [1m[36mProduct Load (0.3ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1[0m  [["id", nil]]
+Completed 404 Not Found in 4ms (ActiveRecord: 0.3ms)
+
+ActiveRecord::RecordNotFound (Couldn't find Product with 'id'=):
+  app/controllers/loja_controller.rb:8:in `create'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (28.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (59.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (1.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (46.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (1.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (82.8ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:57:01 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.9ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (18.9ms)
+Completed 200 OK in 102ms (Views: 94.2ms | ActiveRecord: 1.9ms)
+
+
+Started POST "/loja?product_id=1" for 127.0.0.1 at 2016-01-20 21:57:04 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"vt4G9u6o7Ql0aBudsAv35VK014f4s3WpJUsxMK6Zbe7tl3/htCYPvAerJf4rN1LbZQ0ybVA1wYvMXvSLeoq8LA==", "product_id"=>"1"}
+  [1m[36mProduct Load (0.8ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1[0m  [["id", 1]]
+Redirected to 
+Completed 500 Internal Server Error in 70ms (ActiveRecord: 0.8ms)
+
+NoMethodError (undefined method `index_url' for #<LojaController:0x007f4e69652d18>
+Did you mean?  index):
+  app/controllers/loja_controller.rb:9:in `create'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (22.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (8.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (3.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (99.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (1.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (1.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (66.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (1.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (2.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (127.2ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:57:42 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.6ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (14.6ms)
+Completed 200 OK in 68ms (Views: 60.3ms | ActiveRecord: 1.4ms)
+
+
+Started POST "/loja?product_id=1" for 127.0.0.1 at 2016-01-20 21:57:44 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"6h04DTUJQiYEUtefGMxOEzJlC4KGORwrMOJ5L9BF3dS5VEEab4egk3eR6fyD8OstBdzuaC6/qAnZ97yUBFYMFg==", "product_id"=>"1"}
+  [1m[36mProduct Load (0.4ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1[0m  [["id", 1]]
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.4ms)
+
+ActionController::UrlGenerationError (No route matches {:action=>"show", :controller=>"loja"} missing required keys: [:id]):
+  app/controllers/loja_controller.rb:9:in `create'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (10.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (4.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (43.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (1.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (41.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (80.7ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:58:45 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.6ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (14.0ms)
+Completed 200 OK in 75ms (Views: 67.5ms | ActiveRecord: 1.3ms)
+
+
+Started POST "/loja?product_id=1" for 127.0.0.1 at 2016-01-20 21:58:47 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"VhTsbjatiRuGIngZ3vIXDkmOlXXrB9WY9PGGdaDZhkkFXZV5bCNrrvXhRnpFzrIwfjdwn0OBYbod5EPOdMpXiw==", "product_id"=>"1"}
+  [1m[36mProduct Load (0.4ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1[0m  [["id", 1]]
+Redirected to http://localhost:3000/loja
+Completed 302 Found in 4ms (ActiveRecord: 0.4ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:58:47 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.2ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 47ms (Views: 45.8ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/loja?product_id=1" for 127.0.0.1 at 2016-01-20 21:58:55 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"bFajRq0AkwEfrHEEQ3l16G2e4EHawb7I2g1Awoh22BU/H9pR945xtGxvT2fYRdDWWicFq3JHCuozGIV5XGUJ1w==", "product_id"=>"1"}
+  [1m[36mProduct Load (0.2ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1[0m  [["id", 1]]
+Redirected to http://localhost:3000/loja
+Completed 302 Found in 3ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:58:55 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.2ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 39ms (Views: 38.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 21:59:52 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (0.8ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (11.9ms)
+Completed 200 OK in 120ms (Views: 116.9ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:59:53 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:59:53 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 21:59:53 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 21:59:53 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 21:59:53 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 21:59:53 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 21:59:53 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:59:53 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:59:53 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 21:59:53 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 21:59:53 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 21:59:53 -0300
+
+
+Started POST "/loja_index_path(?product_id=1)" for 127.0.0.1 at 2016-01-20 21:59:55 -0300
+
+ActionController::RoutingError (No route matches [POST] "/loja_index_path("):
+  actionpack (4.2.5) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  web-console (2.2.1) lib/web_console/middleware.rb:39:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.5) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.5) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.5) lib/rails/engine.rb:518:in `call'
+  railties (4.2.5) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/chenrique/.rvm/rubies/ruby-2.3.0/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+  /home/chenrique/.rvm/rubies/ruby-2.3.0/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+  /home/chenrique/.rvm/rubies/ruby-2.3.0/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (5.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/routes/_route.html.erb (8.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/routes/_table.html.erb (9.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (6.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (133.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (1.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (1.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (72.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (1.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (2.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (145.1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-01-20 22:00:17 -0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/railties-4.2.5/lib/rails/templates/rails/welcome/index.html.erb (0.2ms)
+Completed 200 OK in 7ms (Views: 4.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:00:21 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.6ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (4.9ms)
+Completed 200 OK in 44ms (Views: 42.5ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/loja_index_path(?product_id=1)" for 127.0.0.1 at 2016-01-20 22:00:24 -0300
+
+ActionController::RoutingError (No route matches [POST] "/loja_index_path("):
+  actionpack (4.2.5) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  web-console (2.2.1) lib/web_console/middleware.rb:39:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.5) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.5) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.5) lib/rails/engine.rb:518:in `call'
+  railties (4.2.5) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/chenrique/.rvm/rubies/ruby-2.3.0/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+  /home/chenrique/.rvm/rubies/ruby-2.3.0/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+  /home/chenrique/.rvm/rubies/ruby-2.3.0/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/routes/_route.html.erb (3.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/routes/_table.html.erb (2.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (49.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (30.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (60.0ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:00:41 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (0.6ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (8.5ms)
+Completed 200 OK in 111ms (Views: 107.9ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/loja_index_path?product_id=1" for 127.0.0.1 at 2016-01-20 22:00:44 -0300
+
+ActionController::RoutingError (No route matches [POST] "/loja_index_path"):
+  actionpack (4.2.5) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  web-console (2.2.1) lib/web_console/middleware.rb:39:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.5) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.5) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.5) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.5) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.5) lib/action_dispatch/middleware/static.rb:116:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.5) lib/rails/engine.rb:518:in `call'
+  railties (4.2.5) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /home/chenrique/.rvm/rubies/ruby-2.3.0/lib/ruby/2.3.0/webrick/httpserver.rb:140:in `service'
+  /home/chenrique/.rvm/rubies/ruby-2.3.0/lib/ruby/2.3.0/webrick/httpserver.rb:96:in `run'
+  /home/chenrique/.rvm/rubies/ruby-2.3.0/lib/ruby/2.3.0/webrick/server.rb:296:in `block in start_thread'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (5.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/routes/_route.html.erb (7.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/routes/_table.html.erb (5.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (5.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (104.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (1.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (60.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (1.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (2.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (128.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-01-20 22:01:39 -0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/railties-4.2.5/lib/rails/templates/rails/welcome/index.html.erb (0.2ms)
+Completed 200 OK in 7ms (Views: 5.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:01:42 -0300
+Processing by LojaController#index as HTML
+  Rendered loja/index.html.erb within layouts/application (5.0ms)
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 0.0ms)
+
+SyntaxError (/home/chenrique/Documentos/Projetos/projeto/app/views/loja/index.html.erb:23: syntax error, unexpected tSTRING_DEND, expecting ')'
+...x_path(product_id: product.id }), method: :post );@output_bu...
+...                               ^):
+  app/views/loja/index.html.erb:23: syntax error, unexpected tSTRING_DEND, expecting ')'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (34.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (10.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (4.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (99.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (1.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (1.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (63.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (1.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (130.8ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:01:43 -0300
+Processing by LojaController#index as HTML
+  Rendered loja/index.html.erb within layouts/application (5.0ms)
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 0.0ms)
+
+SyntaxError (/home/chenrique/Documentos/Projetos/projeto/app/views/loja/index.html.erb:23: syntax error, unexpected tSTRING_DEND, expecting ')'
+...x_path(product_id: product.id }), method: :post );@output_bu...
+...                               ^):
+  app/views/loja/index.html.erb:23: syntax error, unexpected tSTRING_DEND, expecting ')'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (41.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (14.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (3.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (116.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (1.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (70.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (1.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (138.9ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:01:57 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.3ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (5.8ms)
+Completed 200 OK in 53ms (Views: 51.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:01:58 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:01:58 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:01:58 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:01:58 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:01:58 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:01:58 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:01:58 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:01:58 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:01:58 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:01:58 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:01:58 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:01:58 -0300
+
+
+Started POST "/loja?product_id=2" for 127.0.0.1 at 2016-01-20 22:02:01 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"RaEY8t0W0Zs6Cfpb4NpKGwenlITZC7YD18h+YY+rS0MW6GHlh5gzLknKxDh75u8lMB5xbnGNAiE+3bvaW7iagQ==", "product_id"=>"2"}
+  [1m[36mProduct Load (0.2ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1[0m  [["id", 2]]
+Redirected to http://localhost:3000/loja
+Completed 302 Found in 3ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:02:01 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.4ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (3.8ms)
+Completed 200 OK in 58ms (Views: 57.0ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/loja?product_id=2" for 127.0.0.1 at 2016-01-20 22:02:05 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"OvnRp6Tw1DxcB9FKwiWsRlFJJTiBJn6/L9S+NxVRCxJpsKiw/n42iS/E7ylZGQl4ZvDA0imgyp3GwXuMwULa0A==", "product_id"=>"2"}
+  [1m[36mProduct Load (0.2ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1[0m  [["id", 2]]
+Redirected to http://localhost:3000/loja
+Completed 302 Found in 2ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:02:05 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.3ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 47ms (Views: 45.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:06:43 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (0.8ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (13.8ms)
+Completed 200 OK in 64ms (Views: 58.1ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:06:43 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:06:43 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:06:43 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:06:43 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:06:43 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:06:43 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:06:43 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:06:43 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:06:43 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:06:43 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:06:43 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:06:43 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:06:44 -0300
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:06:53 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (1.3ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (23.7ms)
+Completed 200 OK in 110ms (Views: 101.0ms | ActiveRecord: 2.8ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:06:54 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:06:54 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:06:54 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:06:54 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:06:54 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:06:54 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:06:54 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:06:54 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:06:54 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:06:54 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:06:54 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:06:54 -0300
+
+
+Started POST "/loja?product_id=1" for 127.0.0.1 at 2016-01-20 22:07:00 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"i0FYW6REDf2dWTvRVPcDT2Y7aIbd5267CcCJwSwn9LXYCCFM/srvSO6aBbLPy6ZxUYKNbHVh2png1Ux6+DQldw==", "product_id"=>"1"}
+  [1m[36mProduct Load (0.6ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1[0m  [["id", 1]]
+Redirected to http://localhost:3000/loja
+Completed 302 Found in 48ms (ActiveRecord: 1.3ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:07:00 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.3ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (4.2ms)
+Completed 200 OK in 53ms (Views: 51.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:07:17 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (1.8ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (26.5ms)
+Completed 200 OK in 130ms (Views: 120.7ms | ActiveRecord: 3.3ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:07:18 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:07:18 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:07:18 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:07:18 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:07:18 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:07:18 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:07:18 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:07:18 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:07:18 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:07:18 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:07:18 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:07:18 -0300
+
+
+Started POST "/loja?product_id=1" for 127.0.0.1 at 2016-01-20 22:07:22 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"hTjZkFfJpXv3bZebVThheH1j9PGdsN6Wawz+7EObiwHWcaCHDUdHzoSuqfjOBMRGStoRGzU2arSCGTtXl4haww==", "product_id"=>"1"}
+  [1m[35mProduct Load (0.7ms)[0m  SELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1  [["id", 1]]
+Redirected to http://localhost:3000/loja
+Completed 302 Found in 48ms (ActiveRecord: 1.8ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:07:22 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (0.4ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (7.5ms)
+Completed 200 OK in 99ms (Views: 96.7ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/loja?product_id=2" for 127.0.0.1 at 2016-01-20 22:07:33 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"Y+H87FAdNFKsWcTbi3xe6Etcb76eJj3pNEgQQYasWPQwqIX7CpPW59+a+rgQQPvWfOWKVDagicvdXdX6Ur+JNg==", "product_id"=>"2"}
+  [1m[35mProduct Load (0.6ms)[0m  SELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1  [["id", 2]]
+Redirected to http://localhost:3000/loja
+
+
+Started GET "/loja?product_id=2" for 127.0.0.1 at 2016-01-20 22:08:56 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by LojaController#index as HTML
+  Parameters: {"product_id"=>"2"}
+  [1m[35mProduct Load (0.8ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (43.3ms)
+Completed 200 OK in 1133ms (Views: 1091.2ms | ActiveRecord: 2.7ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:08:59 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:08:59 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:08:59 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:08:59 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:08:59 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:08:59 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:08:59 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:08:59 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:08:59 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:08:59 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:08:59 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:08:59 -0300
+
+
+Started POST "/loja?product_id=2" for 127.0.0.1 at 2016-01-20 22:09:09 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"Hu9fKGijf5GPxCufX5zuEN6Iw2OnXrwnKxUA0BbG4N1NpiY/Mi2dJPwHFfzEoEsu6TEmiQ/YCAXCAMVrwtUxHw==", "product_id"=>"2"}
+  [1m[36mProduct Load (0.6ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1[0m  [["id", 2]]
+Redirected to http://localhost:3000/loja
+Completed 302 Found in 13115ms (ActiveRecord: 1.8ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:09:22 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (2.5ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (9.4ms)
+Completed 200 OK in 169ms (Views: 162.1ms | ActiveRecord: 2.5ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:09:29 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (0.7ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (13.5ms)
+Completed 200 OK in 176ms (Views: 170.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:09:29 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:09:29 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:09:29 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:09:29 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:09:29 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:09:29 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:09:29 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:09:30 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:09:30 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:09:30 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:09:30 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:09:30 -0300
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:09:54 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (1.5ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (31.5ms)
+Completed 200 OK in 16852ms (Views: 163.1ms | ActiveRecord: 3.0ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:10:12 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:10:12 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:10:12 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:10:12 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:10:12 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:10:12 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:10:12 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:10:12 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:10:12 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:10:12 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:10:12 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:10:12 -0300
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:10:25 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (0.6ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (8.6ms)
+Completed 200 OK in 12369ms (Views: 123.1ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:10:38 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:10:38 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:10:38 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:10:38 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:10:38 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:10:38 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:10:38 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:10:38 -0300
+
+
+Started POST "/loja?product_id=2" for 127.0.0.1 at 2016-01-20 22:10:42 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"fI2piZCf88AlUGqDCYw+URRqvxjKUzrEonHSKdvGS5iuOPPaTBgV/BiYLhqfz2xwZhNynN4YxP1AYdXpxiUmkg==", "product_id"=>"2"}
+  [1m[35mProduct Load (0.6ms)[0m  SELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1  [["id", 2]]
+Redirected to http://localhost:3000/loja
+Completed 302 Found in 7523ms (ActiveRecord: 1.8ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:10:50 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (2.4ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (9.8ms)
+Completed 200 OK in 26011ms (Views: 107.4ms | ActiveRecord: 2.4ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:11:16 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.7ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (8.2ms)
+Completed 200 OK in 2313ms (Views: 86.4ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:11:18 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:11:18 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:11:18 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:11:18 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:11:19 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:11:19 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:11:19 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:11:19 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:11:19 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:11:19 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:11:19 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:11:19 -0300
+
+
+Started POST "/loja?product_id=1" for 127.0.0.1 at 2016-01-20 22:11:22 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"eYhq7RWMBcKXc962ArX3EfxYlPHKEt1dFwdndA8BNnOrPTC+yQvj/qq7mi+U9qUwjiFZdd5ZI2T1F2C0EuJbeQ==", "product_id"=>"1"}
+  [1m[36mProduct Load (0.4ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1[0m  [["id", 1]]
+Redirected to http://localhost:3000/loja
+Completed 302 Found in 15442ms (ActiveRecord: 0.4ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:11:37 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (2.1ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (10.3ms)
+Completed 200 OK in 45361ms (Views: 121.5ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/products/2/edit" for 127.0.0.1 at 2016-01-20 22:12:32 -0300
+Processing by ProductsController#edit as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mProduct Load (0.5ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1[0m  [["id", 2]]
+  Rendered products/_form.html.erb (68.9ms)
+  Rendered products/edit.html.erb within layouts/application (88.6ms)
+Completed 200 OK in 211ms (Views: 204.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/products" for 127.0.0.1 at 2016-01-20 22:12:35 -0300
+Processing by ProductsController#index as HTML
+  [1m[35mProduct Load (0.8ms)[0m  SELECT "products".* FROM "products"
+  Rendered products/index.html.erb within layouts/application (10.4ms)
+Completed 200 OK in 115ms (Views: 112.3ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/loja?product_id=2" for 127.0.0.1 at 2016-01-20 22:15:28 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"PM9coP380Qe4nI53AEk98ohRlcXW8tVQxx6Ow7/9ZEZvhiW3p3IzsstfsBSbdZjMv+hwL350YXIuC0t4a+61hA==", "product_id"=>"2"}
+  [1m[36mProduct Load (0.3ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1[0m  [["id", 2]]
+Redirected to http://localhost:3000/loja
+Completed 302 Found in 26ms (ActiveRecord: 1.8ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:15:28 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.7ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (10.8ms)
+Completed 200 OK in 62629ms (Views: 63.2ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:16:53 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (1.6ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (37.7ms)
+Completed 200 OK in 45090ms (Views: 142.2ms | ActiveRecord: 3.6ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:17:39 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:17:39 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:17:39 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:17:39 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:17:39 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:39 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:39 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:39 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:39 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:39 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:39 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:39 -0300
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:17:44 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.4ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 5180ms (Views: 41.0ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:17:49 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:17:49 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:17:49 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:17:49 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:17:49 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:49 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:49 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:49 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:49 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:49 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:50 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:50 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:50 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:50 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:17:50 -0300
+
+
+Started POST "/loja?product_id=1" for 127.0.0.1 at 2016-01-20 22:17:54 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"VZAbJjBEfnDP2lzJf9ELpOGz+Vujpns7l8z8IYn/4/UG2WIxasqcxbwZYqrk7a6a1gocsQsgzxl+2TmaXewyNw==", "product_id"=>"1"}
+  [1m[36mProduct Load (0.3ms)[0m  [1mSELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1[0m  [["id", 1]]
+Redirected to http://localhost:3000/loja
+Completed 302 Found in 20ms (ActiveRecord: 0.8ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:17:54 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.6ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (6.1ms)
+Completed 200 OK in 35486ms (Views: 120.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:18:30 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (1.9ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (36.3ms)
+Completed 200 OK in 1988ms (Views: 114.9ms | ActiveRecord: 6.9ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:18:32 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:18:33 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:18:33 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:18:33 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:18:33 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:18:33 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:18:33 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:18:33 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:18:33 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:18:33 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:18:33 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:18:33 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:18:33 -0300
+
+
+Started POST "/loja?product_id=1" for 127.0.0.1 at 2016-01-20 22:18:38 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"6WJ7EG2HBGg2xbrbYNMAqNPcJLFpxYe0Of/V35+TmUy6KwIHNwnm3UUGhLj776WW5GXBW8FDM5bQ6hBkS4BIjg==", "product_id"=>"1"}
+  [1m[35mProduct Load (0.7ms)[0m  SELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1  [["id", 1]]
+Redirected to http://localhost:3000/loja
+Completed 302 Found in 36ms (ActiveRecord: 1.7ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:18:38 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (0.4ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (4.8ms)
+Completed 200 OK in 21448ms (Views: 103.6ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/products" for 127.0.0.1 at 2016-01-20 22:21:30 -0300
+Processing by ProductsController#index as HTML
+  [1m[35mProduct Load (0.3ms)[0m  SELECT "products".* FROM "products"
+  Rendered products/index.html.erb within layouts/application (6.5ms)
+Completed 200 OK in 34ms (Views: 31.5ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:21:30 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:21:30 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:30 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:21:30 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:21:30 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:21:30 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:30 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:30 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:30 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:30 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:30 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:30 -0300
+
+
+Started GET "/products" for 127.0.0.1 at 2016-01-20 22:21:32 -0300
+Processing by ProductsController#index as HTML
+  [1m[36mProduct Load (0.3ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered products/index.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 29ms (Views: 27.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:21:32 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:21:32 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:21:32 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:21:32 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:32 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:21:32 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:32 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:32 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:32 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:32 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:32 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:32 -0300
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:21:36 -0300
+
+SyntaxError (/home/chenrique/Documentos/Projetos/projeto/app/controllers/loja_controller.rb:10: syntax error, unexpected ||
+    session[:carrinho] =|| []
+                          ^):
+  app/controllers/loja_controller.rb:10: syntax error, unexpected ||
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (23.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (17.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (37.3ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:21:56 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.5ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (14.7ms)
+Completed 200 OK in 2486ms (Views: 53.6ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:21:59 -0300
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:22:09 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (0.2ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 18839ms (Views: 25.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:22:28 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:22:28 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:22:28 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:22:28 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:22:28 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:22:28 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:22:28 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:22:28 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:22:28 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:22:28 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:22:28 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:22:28 -0300
+
+
+Started POST "/loja?product_id=1" for 127.0.0.1 at 2016-01-20 22:22:32 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"4xypwRoICoh9RR70IeF0EFeQCM/sa/k8GxnSybBrhhWwVdDWQIboPQ6GIJe63dEuYCntJUTtTR7yDBdyZHhX1w==", "product_id"=>"1"}
+  [1m[35mProduct Load (0.2ms)[0m  SELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1  [["id", 1]]
+Redirected to http://localhost:3000/loja
+Completed 302 Found in 11ms (ActiveRecord: 0.5ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:22:32 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (0.2ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 16544ms (Views: 30.4ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/loja?product_id=2" for 127.0.0.1 at 2016-01-20 22:22:51 -0300
+Processing by LojaController#create as HTML
+  Parameters: {"authenticity_token"=>"XtUSYCRxvh06GoXqr5T11pA2ZU2XpegG8bw4FRGIcE4NnGt3fv9cqEnZu4k0qFDop4+Apz8jXCQYqf2uxZuhjA==", "product_id"=>"2"}
+  [1m[35mProduct Load (0.1ms)[0m  SELECT  "products".* FROM "products" WHERE "products"."id" = ? LIMIT 1  [["id", 2]]
+Redirected to http://localhost:3000/loja
+Completed 302 Found in 2ms (ActiveRecord: 0.1ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:22:51 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (0.3ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (3.3ms)
+Completed 200 OK in 57240ms (Views: 53.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:25:02 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.7ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (14.6ms)
+Completed 200 OK in 57ms (Views: 51.8ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:25:02 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:25:02 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:25:02 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:25:02 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:25:02 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:25:02 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:25:02 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:25:02 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:25:02 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:25:02 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:25:02 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:25:02 -0300
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:25:36 -0300
+Processing by LojaController#index as HTML
+  [1m[36mProduct Load (0.9ms)[0m  [1mSELECT "products".* FROM "products"[0m
+  Rendered loja/index.html.erb within layouts/application (23.7ms)
+Completed 200 OK in 93ms (Views: 89.5ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:25:37 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:25:37 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:25:37 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:25:37 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:25:37 -0300
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:25:37 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:25:37 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:25:37 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:25:37 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:25:37 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:25:37 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:25:37 -0300
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:31:18 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (1.4ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (37.6ms)
+Completed 200 OK in 167ms (Views: 156.2ms | ActiveRecord: 3.3ms)
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:31:19 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:31:19 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:31:19 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:31:20 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:31:20 -0300
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:31:20 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:31:20 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:31:20 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:31:20 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:31:20 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:31:20 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:31:20 -0300
+
+
+Started GET "/loja/new" for 127.0.0.1 at 2016-01-20 22:31:24 -0300
+Processing by LojaController#new as HTML
+Completed 500 Internal Server Error in 123ms (ActiveRecord: 1.9ms)
+
+NoMethodError (undefined method `build=' for #<ActiveRecord::Associations::CollectionProxy []>
+Did you mean?  build):
+  app/controllers/loja_controller.rb:17:in `block in new'
+  app/controllers/loja_controller.rb:16:in `each'
+  app/controllers/loja_controller.rb:16:in `new'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (24.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (14.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (3.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (103.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (1.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (1.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (59.6ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (1.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (114.0ms)
+
+
+Started GET "/loja/new" for 127.0.0.1 at 2016-01-20 22:31:24 -0300
+Processing by LojaController#new as HTML
+Completed 500 Internal Server Error in 48ms (ActiveRecord: 0.0ms)
+
+NoMethodError (undefined method `build=' for #<ActiveRecord::Associations::CollectionProxy []>
+Did you mean?  build):
+  app/controllers/loja_controller.rb:17:in `block in new'
+  app/controllers/loja_controller.rb:16:in `each'
+  app/controllers/loja_controller.rb:16:in `new'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (30.9ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (14.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (3.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (103.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (1.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (1.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (56.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (1.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (2.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (113.7ms)
+
+
+Started GET "/loja/new" for 127.0.0.1 at 2016-01-20 22:34:46 -0300
+Processing by LojaController#new as HTML
+Completed 500 Internal Server Error in 54ms (ActiveRecord: 1.6ms)
+
+NoMethodError (undefined method `order_item' for #<Order:0x00000005afcb20>
+Did you mean?  order_items
+               order_items=):
+  app/controllers/loja_controller.rb:17:in `block in new'
+  app/controllers/loja_controller.rb:16:in `each'
+  app/controllers/loja_controller.rb:16:in `new'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (22.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (8.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (3.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (91.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (1.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (1.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (58.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (1.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (120.4ms)
+
+
+Started GET "/loja/new" for 127.0.0.1 at 2016-01-20 22:34:58 -0300
+Processing by LojaController#new as HTML
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "orders" ("created_at", "updated_at") VALUES (?, ?)  [["created_at", "2016-01-21 01:34:58.792121"], ["updated_at", "2016-01-21 01:34:58.792121"]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "order_items" ("product_id", "qtd", "order_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["product_id", 1], ["qtd", 1], ["order_id", 1], ["created_at", "2016-01-21 01:34:58.796600"], ["updated_at", "2016-01-21 01:34:58.796600"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "order_items" ("product_id", "qtd", "order_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["product_id", 2], ["qtd", 1], ["order_id", 1], ["created_at", "2016-01-21 01:34:58.802106"], ["updated_at", "2016-01-21 01:34:58.802106"]]
+  [1m[36m (211.9ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/loja
+Completed 302 Found in 279ms (ActiveRecord: 217.4ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:34:59 -0300
+Processing by LojaController#index as HTML
+  Rendered loja/index.html.erb within layouts/application (13.2ms)
+Completed 500 Internal Server Error in 35ms (ActiveRecord: 0.0ms)
+
+ActionView::Template::Error (undefined method `size' for nil:NilClass):
+    1: <p id="notice"><%= notice %></p>
+    2: voce tem <%= session[:carrinho].size %> itens
+    3: <h1>Bem vindo a Loja</h1>
+    4: 
+    5: <table>
+  app/views/loja/index.html.erb:2:in `_app_views_loja_index_html_erb___1295720397308006791_69934034787260'
+
+
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (27.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (13.1ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (3.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (94.7ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (1.8ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.4ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (1.2ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (61.3ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (1.0ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.5ms)
+  Rendered /home/chenrique/.rvm/gems/ruby-2.3.0@grcommerce/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (122.8ms)
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:36:51 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.8ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (19.8ms)
+Completed 200 OK in 81ms (Views: 73.7ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:36:51 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:36:51 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:36:51 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:36:51 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:36:51 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:36:51 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:36:51 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:36:51 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:36:51 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:36:51 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:36:51 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:36:51 -0300
+
+
+Started GET "/orders/" for 127.0.0.1 at 2016-01-20 22:37:18 -0300
+Processing by OrdersController#index as HTML
+  [1m[36mOrder Load (0.4ms)[0m  [1mSELECT "orders".* FROM "orders"[0m
+  Rendered orders/index.html.erb within layouts/application (19.1ms)
+Completed 200 OK in 133ms (Views: 121.7ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/orders/new" for 127.0.0.1 at 2016-01-20 22:37:26 -0300
+Processing by OrdersController#new as HTML
+  Rendered orders/_form.html.erb (25.7ms)
+  Rendered orders/new.html.erb within layouts/application (32.5ms)
+Completed 200 OK in 153ms (Views: 150.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/orders" for 127.0.0.1 at 2016-01-20 22:37:38 -0300
+Processing by OrdersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"gFTe8ZFpNLEEKQOOnnGQKOOOQjnPsmIWxSAiGoEbWTPTHafmy+fWBHfqPe0FTTUW1Den02c01jQsNeehVQiI8Q==", "order"=>{"data_compra(1i)"=>"2016", "data_compra(2i)"=>"1", "data_compra(3i)"=>"21"}, "commit"=>"Create Order"}
+  [1m[35m (0.6ms)[0m  begin transaction
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "orders" ("data_compra", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["data_compra", "2016-01-21"], ["created_at", "2016-01-21 01:37:38.198614"], ["updated_at", "2016-01-21 01:37:38.198614"]]
+  [1m[35m (146.1ms)[0m  commit transaction
+Redirected to http://localhost:3000/orders/2
+Completed 302 Found in 165ms (ActiveRecord: 147.7ms)
+
+
+Started GET "/orders/2" for 127.0.0.1 at 2016-01-20 22:37:38 -0300
+Processing by OrdersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mOrder Load (0.5ms)[0m  [1mSELECT  "orders".* FROM "orders" WHERE "orders"."id" = ? LIMIT 1[0m  [["id", 2]]
+  Rendered orders/show.html.erb within layouts/application (4.0ms)
+Completed 200 OK in 145ms (Views: 133.2ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2016-01-20 22:37:41 -0300
+Processing by OrdersController#index as HTML
+  [1m[35mOrder Load (0.6ms)[0m  SELECT "orders".* FROM "orders"
+  Rendered orders/index.html.erb within layouts/application (12.4ms)
+Completed 200 OK in 121ms (Views: 118.4ms | ActiveRecord: 0.6ms)
+
+
+Started DELETE "/orders/2" for 127.0.0.1 at 2016-01-20 22:37:47 -0300
+Processing by OrdersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"4eJtn+EMI7S8uEMUWuEKily8ir4m48hwe/A471xwfyiyqxSIu4LBAc97fXfB3a+0awVvVI5lfFKS5f1UiGOu6g==", "id"=>"2"}
+  [1m[36mOrder Load (0.3ms)[0m  [1mSELECT  "orders".* FROM "orders" WHERE "orders"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mSQL (0.8ms)[0m  [1mDELETE FROM "orders" WHERE "orders"."id" = ?[0m  [["id", 2]]
+  [1m[35m (131.5ms)[0m  commit transaction
+Redirected to http://localhost:3000/orders
+Completed 302 Found in 142ms (ActiveRecord: 132.8ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2016-01-20 22:37:47 -0300
+Processing by OrdersController#index as HTML
+  [1m[36mOrder Load (0.6ms)[0m  [1mSELECT "orders".* FROM "orders"[0m
+  Rendered orders/index.html.erb within layouts/application (6.7ms)
+Completed 200 OK in 122ms (Views: 118.8ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2016-01-20 22:39:56 -0300
+Processing by OrdersController#index as HTML
+  [1m[35mOrder Load (0.9ms)[0m  SELECT "orders".* FROM "orders"
+  [1m[36m (0.5ms)[0m  [1mSELECT COUNT(*) FROM "order_items" WHERE "order_items"."order_id" = ?[0m  [["order_id", 1]]
+  Rendered orders/index.html.erb within layouts/application (30.4ms)
+Completed 200 OK in 109ms (Views: 104.3ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:39:57 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:39:57 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:39:57 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:39:57 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:39:57 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:39:58 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:39:58 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:39:58 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:39:58 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:39:58 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:39:58 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:39:58 -0300
+
+
+Started GET "/loja" for 127.0.0.1 at 2016-01-20 22:43:25 -0300
+Processing by LojaController#index as HTML
+  [1m[35mProduct Load (0.4ms)[0m  SELECT "products".* FROM "products"
+  Rendered loja/index.html.erb within layouts/application (4.9ms)
+Completed 200 OK in 51ms (Views: 48.7ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/loja.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:43:25 -0300
+
+
+Started GET "/assets/products.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:43:25 -0300
+
+
+Started GET "/assets/orders.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-20 22:43:25 -0300
+
+
+Started GET "/assets/scaffolds.self-083d19b45e68b44532f8a52dc0d995bafe7b69644ce62bb3eeef864c19518498.css?body=1" for 127.0.0.1 at 2016-01-20 22:43:25 -0300
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-20 22:43:25 -0300
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for 127.0.0.1 at 2016-01-20 22:43:25 -0300
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for 127.0.0.1 at 2016-01-20 22:43:25 -0300
+
+
+Started GET "/assets/loja.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:43:25 -0300
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-20 22:43:25 -0300
+
+
+Started GET "/assets/products.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:43:26 -0300
+
+
+Started GET "/assets/orders.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-20 22:43:26 -0300
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-20 22:43:26 -0300
